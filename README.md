@@ -1,6 +1,6 @@
 # CDPA Repository
 
-This repository contains code related to the CDPA attack and other related attack
+This repository contains code related to the CDPA attack and other related attacks
 
 It contains the following folders:
 
