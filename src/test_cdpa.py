@@ -18,7 +18,7 @@ def parse():
         '-b',
         '--bit-count',
         type=int,
-        choices=range(1,65),
+        choices=range(1, 65),
         default=32,
         help='The number of bits in the secret numbers',
     )
@@ -69,8 +69,9 @@ def parse():
     )
 
     args = parser.parse_args()
+    args.verbose |= args.list_of_traces
     assert not args.verbose or args.experiment_count == 1, \
-        '"-v" is permitted only if the experiment count is 1 ("-e 1" or default)'
+        '"-v" and "-l" are permitted only if the experiment count is 1 ("-e 1" or default)'
     return (
         args.trace_count,
         args.bit_count,
@@ -78,17 +79,15 @@ def parse():
         args.experiment_count,
         args.random_seed,
         args.noise,
-        args.verbose or args.list_of_traces,
+        args.verbose,
         args.list_of_traces,
     )
 
 
-if __name__ == '__main__':
-    warnings.filterwarnings('ignore', category=RuntimeWarning)
-    # Parse the command line
-    trace_count, bit_count, share_count, experiment_count, seed, noise, verbose, list_traces = parse()
+def simulate(trace_count, bit_count, share_count, experiment_count,
+    seed=None, noise=None, verbose=False, list_traces=False):
     # Generate the traces
-    success_count, hd_sum, mask = 0, 0, (1 << (bit_count - 1)) - 1
+    result_success_count, lsb_success_count, bit_success_count, mask = 0, 0, 0, (1 << (bit_count - 1)) - 1
     for i in range(experiment_count):
         data, traces, x, y = generate_traces(trace_count, bit_count, share_count, noise, seed)
         if verbose:
@@ -97,19 +96,40 @@ if __name__ == '__main__':
             print('Secret values: X = ' + data_fmt.format(x) + ', Y = ' + data_fmt.format(y))
             print()
         res_x, res_y = cdpa_attack(data, traces, bit_count, share_count, verbose, list_traces)
-        highest_bit_match = ((x ^ y ^ res_x ^ res_y) >> (bit_count - 1)) == 0
-        x_match_count = bit_count - 1 - ((x ^ res_x) & mask).bit_count()
-        y_match_count = bit_count - 1 - ((y ^ res_y) & mask).bit_count()
+        x_dif, y_dif = x ^ res_x, y ^ res_y
+        highest_bit_match = ((x_dif ^ y_dif) >> (bit_count - 1)) == 0
+        x_match_count = bit_count - 1 - (x_dif & mask).bit_count()
+        y_match_count = bit_count - 1 - (y_dif & mask).bit_count()
         success = highest_bit_match and x_match_count == bit_count - 1 and y_match_count == bit_count - 1
-        success_count += success
-        hd_sum += highest_bit_match + x_match_count + y_match_count
+        result_success_count += success
+        bit_success_count += highest_bit_match + x_match_count + y_match_count
+        if success:
+            lsb_success_count += bit_count
+        else:
+            while x_dif & 1 == 0 and y_dif & 1 == 0:
+                x_dif >>= 1
+                y_dif >>= 1
+                lsb_success_count += 1
+
     if verbose:
-        nibble_count = ((bit_count -1) >> 2) + 1
+        nibble_count = ((bit_count - 1) >> 2) + 1
         data_fmt = '{' + ':0{:d}x'.format(nibble_count) + '}'
         print()
         print('Secret    values: X = ' + data_fmt.format(x) + ', Y = ' + data_fmt.format(y))
         print('Recovered values: X = ' + data_fmt.format(res_x) + ', Y = ' + data_fmt.format(res_y))
         print('Success' if success else 'Failure')
-    else:
-        print('{:5.2f}% correct answers'.format(success_count / experiment_count * 100))
-        print('{:5.2f}% correct bits'.format(hd_sum / experiment_count / (2 * bit_count - 1) * 100))
+    return result_success_count / experiment_count * 100, \
+        lsb_success_count / experiment_count / bit_count * 100, \
+        bit_success_count / experiment_count / (2 * bit_count - 1) * 100
+
+
+if __name__ == '__main__':
+    warnings.filterwarnings('ignore', category=RuntimeWarning)
+    # Parse the command line
+    trace_count, bit_count, share_count, experiment_count, seed, noise, verbose, list_traces = parse()
+    result_ratio, lsb_success_ratio, bit_success_ratio = simulate(
+        trace_count, bit_count, share_count, experiment_count, seed, noise, verbose, list_traces)
+    if not verbose:
+        print('{:5.2f}% correct answers'.format(result_ratio))
+        print('{:5.2f}% correct least significant bits'.format(lsb_success_ratio))
+        print('{:5.2f}% correct bits'.format(bit_success_ratio))
