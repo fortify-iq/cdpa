@@ -13,23 +13,36 @@ from termcolor import cprint
 
 def cdpa_attack(data, traces, bit_count, share_count, verbose, list_traces):
     """CDPA attack on a pair of secrets X, Y.
-    Parameters:
-        data - array of input words W[i]
-        traces - array of side channel leakage values, corresponding to the input words.
-            Each side leakage value is the Hamming distance between X+W[i] and Y, where
-            both X+W[i] and Y are randomly represented as an XOR of several shares.
-            A normally distributed noise may be optionally added to this Hamming distance.
-        bit_count - the bit size of the secrets X, Y and of the input words W[i]
-        share_count - the order of the moment to be used for the attack. It should
-            match the number of shares used to generate the side channel leakage data.
-        verbose - if True, outputs a short report of steps 0-7 of the attack. (The number
-            of steps is limited in order to keep reasonable line lengths.)
-        list_traces - if True, outputs a more detailed report, including the individual
-            traces and splitting of the set of all traces into subsets at steps 0-7 of
-            the attack.
-    Returns recovered values of X and Y. The attack is considered successful if the XOR
-    of the most significant bits of X and Y and all the remaining individual bits of both
-    X and Y are guessed correctly.
+
+    Parameters
+    ----------
+    data : array_like
+        Array of input words W[i].
+    traces : np.ndarray
+        Array of side channel leakage values, corresponding to the input words.
+        Each side leakage value is the Hamming distance between X+W[i] and Y, where
+        both X+W[i] and Y are randomly represented as an XOR of several shares.
+        A normally distributed noise may be optionally added to this Hamming distance.
+    bit_count : int
+        The bit size of the secrets X, Y and of the input words W[i].
+    share_count : int
+        The order of the moment to be used for the attack.
+        It should match the number of shares used to generate
+        the side channel leakage data.
+    verbose : bool
+        If `True`, outputs a short report of steps 0-7 of the attack.
+        (The number of steps is limited in order to keep reasonable line lengths.)
+    list_traces : bool
+        If `True`, outputs a more detailed report, including the individual
+        traces and splitting of the set of all traces into subsets at steps 0-7 of
+        the attack.
+
+    Returns
+    -------
+    recovered values of X and Y : tuple[int, int]
+        The attack is considered successful
+        if the XOR of the most significant bits of X and Y
+        and all the remaining individual bits of both X and Y are guessed correctly.
     """
 
     # Step 0 (two subsets)
