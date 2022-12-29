@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from TestCdpaAttack import simulate
+from test_cdpa import simulate
 
 
 with open('res.csv', 'wt') as f_res, open('lsb.csv', 'wt') as f_lsb, open('bit.csv', 'wt') as f_bit:

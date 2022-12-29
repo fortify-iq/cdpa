@@ -8,8 +8,8 @@
 
 import warnings
 import argparse
-from CdpaAttack import cdpa_attack
-from CdpaTraceGeneration import generate_traces
+from cdpa_attack import cdpa_attack
+from cdpa_trace_generation import generate_traces
 
 
 def parse():
