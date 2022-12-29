@@ -61,7 +61,7 @@ def cdpa_attack(data, traces, bit_count, share_count, verbose, list_traces):
 
     if verbose or list_traces:
         nibble_count = ((bit_count - 1) >> 2) + 1
-        data_fmt = '{' + ':0{:d}x'.format(nibble_count) + '}'
+        data_fmt = '{{:0{:d}x}}'.format(nibble_count)
         space = ' ' * (nibble_count - 1) if list_traces else ' '
         if bit_count > 8:
             bit_count = 8
