@@ -39,4 +39,5 @@ def generate_traces(trace_count, bit_count, share_count, noise, seed):
     if noise:
         traces = traces.astype(float)
         traces += np.random.normal(scale=noise, size=trace_count)
+
     return data, traces, int(x), int(y)

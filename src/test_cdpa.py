@@ -75,6 +75,7 @@ def parse():
     args.verbose |= args.list_of_traces
     assert not args.verbose or args.experiment_count == 1, \
         '"-v" and "-l" are permitted only if the experiment count is 1 ("-e 1" or default)'
+
     return (
         args.trace_count,
         args.bit_count,
