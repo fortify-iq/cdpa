@@ -8,7 +8,7 @@
 
 from datetime import datetime
 
-from test_cdpa import simulate
+from cdpa_end_to_end import end_to_end_attack
 
 
 if __name__ == '__main__':
@@ -49,7 +49,7 @@ if __name__ == '__main__':
                         )
                         prev_time = cur_time
                         trace_count = 1 << trace_count_exp
-                        result_sucess_ratio, lsb_success_ratio, bit_success_ratio = simulate(
+                        result_sucess_ratio, lsb_success_ratio, bit_success_ratio = end_to_end_attack(
                             trace_count, bit_count, share_count, experiment_count, None, noise
                         )
                         if lsb_success_ratio < 2:
