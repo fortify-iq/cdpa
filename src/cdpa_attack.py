@@ -8,7 +8,12 @@
 
 import numpy as np
 from scipy.stats import moment
-from termcolor import cprint
+
+try:
+    from termcolor import cprint
+except ModuleNotFoundError:
+    def cprint(x, y=None, z=None, **kwargs):
+        print(x, **kwargs)
 
 
 def cdpa_attack(data, traces, bit_count, share_count, verbose, list_traces):

@@ -20,40 +20,40 @@ def parse():
         type=int,
         choices=range(1, 65),
         default=32,
-        help='The number of bits in the secret numbers',
+        help='Number of bits in the secret numbers (32 by default)',
     )
     parser.add_argument(
         '-s',
         '--share-count',
         type=int,
         default=1,
-        help='The number of shares',
+        help='Number of shares (1 by default)',
     )
     parser.add_argument(
         '-t',
         '--trace-count',
         type=int,
         default=100000,
-        help='The number of traces to acquire for the attack',
+        help='Number of traces to acquire for the attack (100K by default)',
     )
     parser.add_argument(
         '-n',
         '--noise',
         type=float,
-        help='The standard deviation of normally distributed noise',
+        help='Standard deviation of the normally distributed noise added to the trace (0 by default)',
     )
     parser.add_argument(
         '-e',
         '--experiment-count',
         type=int,
         default=1,
-        help='The number of experiments to perform',
+        help='The number of experiments to perform (1 by default)',
     )
     parser.add_argument(
         '-r',
         '--random-seed',
         type=int,
-        help='A random seed for the secret generation',
+        help='A random seed for the secret generation (None by default)',
     )
     parser.add_argument(
         '-v',
@@ -97,6 +97,12 @@ if __name__ == '__main__':
         verbose,
         list_traces,
     ) = parse()
+    # Suppress expected overflows in addition and subtraction
+    warnings.filterwarnings('ignore', category=RuntimeWarning)
     result_ratio, lsb_success_ratio, bit_success_ratio = end_to_end_attack(
         trace_count, bit_count, share_count, experiment_count, seed, noise, verbose, list_traces
     )
+    if not verbose:
+        print('{:5.2f}% correct answers'.format(result_ratio))
+        print('{:5.2f}% correct least significant bits'.format(lsb_success_ratio))
+        print('{:5.2f}% correct bits'.format(bit_success_ratio))

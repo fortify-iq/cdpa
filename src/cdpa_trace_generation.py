@@ -9,7 +9,7 @@
 import numpy as np
 
 
-def hd(x, y):
+def hd(x, y=0):
     m1 = 0x5555555555555555
     m2 = 0x3333333333333333
     m4 = 0x0f0f0f0f0f0f0f0f
