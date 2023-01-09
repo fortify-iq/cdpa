@@ -9,8 +9,10 @@
 try:
     from termcolor import cprint
 except ModuleNotFoundError:
+
     def cprint(x, y=None, z=None, **kwargs):
         print(x, **kwargs)
+
 
 from cdpa_attack import cdpa_attack
 from cdpa_trace_generation import generate_traces, hd

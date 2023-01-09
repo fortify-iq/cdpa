@@ -25,3 +25,11 @@ Directory `src` contains the following files:
 - `-r` - Random seed (by default `None`). If no random seed is provided, the experiments are not reproducible, since each time different random values are used. If a random seed is provided, the experiments are reproducible, and the same command line always produces the same result.
 - `-v` - Verbose. Permissible only if the number of experiments is 1 (which is the default). Outputs a summary of the rounds corresponding to bits 0-7 (or less if the bit size is less than 8).
 - `-l` - Long printout. Permissible only if the number of experiments is 1 (which is the default). Outputs the same summary as with `-v` (so it is not required to use `-v` when `-l` is used), prepended by several lines, a line per trace, with more detailed information about each trace.
+
+## Installation of Dependencies
+
+The codebase of the attack has a few dependencies.
+
+The simplest way to install them is by using the [pip](https://pip.pypa.io/en/stable/) package manager.
+The list of dependencies is contained within the `requirements.txt` file.
+Use the commands described [here](https://pip.pypa.io/en/stable/user_guide/#requirements-files) to install the dependencies.
