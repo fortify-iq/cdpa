@@ -40,7 +40,8 @@ def parse():
         '-n',
         '--noise',
         type=float,
-        help='Standard deviation of the normally distributed noise added to the trace (0 by default)',
+        help='Standard deviation of the normally distributed noise '
+        'added to the trace (0 by default)',
     )
     parser.add_argument(
         '-e',

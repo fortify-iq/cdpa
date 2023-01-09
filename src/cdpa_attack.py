@@ -12,6 +12,7 @@ from scipy.stats import moment
 try:
     from termcolor import cprint
 except ModuleNotFoundError:
+
     def cprint(x, y=None, z=None, **kwargs):
         print(x, **kwargs)
 
@@ -87,8 +88,7 @@ def cdpa_attack(data, traces, bit_count, share_count, verbose, list_traces):
         space = ' ' * (nibble_count - 1) if list_traces else ' '
         if bit_count > 8:
             bit_count = 8
-        print(space + ' ' * 7
-              + '  '.join('Step {}'.format(i) for i in range(bit_count)))
+        print(space + ' ' * 7 + '  '.join('Step {}'.format(i) for i in range(bit_count)))
         if list_traces:
             print(
                 space
