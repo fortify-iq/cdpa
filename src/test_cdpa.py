@@ -1,10 +1,6 @@
-#  Copyright © 2022 FortifyIQ, Inc.
+#  Copyright © 2022-2023 [unidentified]
 #
 #  All Rights Reserved.
-#
-#  All information contained herein is, and remains, the property of FortifyIQ, Inc.
-#  Dissemination of this information or reproduction of this material, in any medium,
-#  is strictly forbidden unless prior written permission is obtained from FortifyIQ, Inc.
 
 import warnings
 import argparse
