@@ -1,6 +1,20 @@
-#  Copyright © 2022-2023 [unidentified]
+# Copyright © 2022 FortifyIQ, Inc. All rights reserved. 
 #
-#  All Rights Reserved.
+# This program, cdpa, is free software: you can redistribute it and/or modify
+# it under the terms and conditions of FortifyIQ’s free use license (”License”)
+# which is located at
+# https://raw.githubusercontent.com/fortify-iq/cdpa/master/LICENSE.
+# This license governs use of the accompanying software. If you use the
+# software, you accept this license. If you do not accept the license, do not
+# use the software.
+#
+# The License permits non-commercial use, but does not permit commercial use or
+# resale. This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY OR RIGHT TO ECONOMIC DAMAGES; without even the implied
+# warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+#
+# If you have any questions regarding the software of the license, please
+# contact kreimer@fortifyiq.com
 
 import warnings
 import argparse
