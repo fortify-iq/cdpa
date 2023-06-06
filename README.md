@@ -48,7 +48,7 @@ These three lines reflect the estimations of metrics M<sub>1</sub>, M<sub>2</sub
 In order to exactly reproduce Figure 3 (the toy example), use the following command line:
 
 ```bash
-python.exe ./test_cdpa_attack.py -b 8 -t 24 -r 55 -l
+python test_cdpa_attack.py -b 8 -t 24 -r 55 -l
 ```
 
 In order to exactly reproduce Figure 4 (successful CDPA with 100K traces), use the following command line:
