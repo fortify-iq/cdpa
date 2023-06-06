@@ -35,7 +35,7 @@ Folder `results` contains the following files:
 
 The printout of `test_cdpa_attack.py` includes three lines:
 
-```bash
+```text
 xx.xx% correct answers
 yy.yy% correct least significant bits
 zz.zz% correct bits
