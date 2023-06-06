@@ -54,7 +54,7 @@ python test_cdpa_attack.py -b 8 -t 24 -r 55 -l
 In order to exactly reproduce Figure 4 (successful CDPA with 100K traces), use the following command line:
 
 ```bash
-python.exe ./test_cdpa_attack.py -b 64 -t 100000 -r 3 -v
+python test_cdpa_attack.py -b 64 -t 100000 -r 3 -v
 ```
 
 Table 1 is based on the data in file `results/cdpa_stats.xlsx`, sheet `res(M1)`. For example, the upper left entry (2<sup>9</sup> for 32 bits, first order, noise 0) reflects the fact that the first entry in row 3 of this sheet (32 bits, first order, noise 0) which is greater that 50% is in cell G3, corresponding to 512=2<sup>9</sup> traces.
