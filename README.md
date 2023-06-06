@@ -62,7 +62,7 @@ Table 1 is based on the data in file `results/cdpa_stats.xlsx`, sheet `res(M1)`.
 All the values in `results/cdpa_stats.xlsx` can be reproduced using `test_cdpa_attack.py`. For example, in order to reproduce cell G3 in all three sheets of `results/cdpa_stats.xlsx`, use, e.g., the following command line:
 
 ```bash
-python.exe ./test_cdpa_attack.py -b 32 -s 1 -n 0 -t 512 -e 1000
+python test_cdpa_attack.py -b 32 -s 1 -n 0 -t 512 -e 1000
 ```
 
 The number of experiments (parameter `-e`) can be chosen arbitrarily, taking into account that both the precision and the run time increase as the number of experiments increases. The results may slightly deviate from the data in `results/cdpa_stats.xlsx`, since the metrics are estimated on a randomly chosen finite set of experiments.
